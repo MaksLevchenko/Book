@@ -44,20 +44,7 @@ def add_book() -> None:
     book.author = f"{author.split('.')[0].capitalize()}. {author.split('.')[1].strip().capitalize()}. {author.split('.')[2].strip().capitalize()}."
     book.year = year
 
-    data['books'].append({
-        'book_id': book.id,
-        'book_title': book.title,
-        'book_author': book.author,
-        'book_year': book.year,
-        'book_status': 'в наличии'
-        })
-        
-    # Запись новой книги в файл books.txt
-    with open('books.txt', 'w', encoding='utf-8') as file:
-        json.dump(data, file)
-    print()
-    print(f'книга {book.title} успешно добавленна в базу с id {book.id}')
-    print()
+    book.add_book()
 
 # Удаления книги по id
 def del_book() -> None:
@@ -69,21 +56,10 @@ def del_book() -> None:
     # Проверка id, на то, что введённые данные являются числом
     if book_id.isdigit():
 
-        # Открытие файла books.txt
-        with open('books.txt', 'r', encoding='utf-8') as file:
-            data = json.load(file)
-
-        # Поиск книги по id и её удаление
-        for book in data['books']:
-            if book['book_id'] == int(book_id):
-                data['books'].remove(book)
-                with open('books.txt', 'w', encoding='utf-8') as file:
-                    json.dump(data, file)
-                print(f'Книга с id {book_id} успешно удалена.')
-            # Вывод ошибки, если книги с таким id нет в базе
-            else:
-                print(f'Книги с id {book_id} нет в нашем списке!')
-                del_book()
+        book = Book()
+        book.id = book_id
+        if not book.del_book():
+            del_book()
     # Вывод ошибки, если введённое значение не является числом
     else:
         print('То, что Вы ввели не является числом!')
@@ -124,24 +100,8 @@ def search_book() -> None:
 def view_books() -> None:
     """Функция выводит в консоль все книги из файла books.txt"""
 
-    # Открытие файла books.txt
-    with open('books.txt', 'r', encoding='utf-8') as file:
-        data = json.load(file)
-
-    # Непосредственно вывод в консоль всех книг из базы
-    if data['books']:
-        print()
-        print('Вот все наши книги:')
-        print()
-        for book in data['books']:
-            print(book['book_title'])
-            print(book['book_author'])
-            print(book['book_year'])
-            print(book['book_status'])
-            print()
-    # Вывод ошибки, если нет ни одной книги в базе
-    else:
-        print('К сожалению в данный момент у нас нет ни одной книги(')
+    book = Book()
+    book.view_books()
 
 # Изменение статуса книги
 def change_status_book() -> None:
@@ -161,22 +121,10 @@ def change_status_book() -> None:
     # Проверка на то, что введённый статус соответствует стандартам
     if book_status.lower() == 'в наличии' or book_status.lower() == 'выдана':
 
-        # Открытие файла books.txt
-        with open('books.txt', 'r', encoding='utf-8') as file:
-            data = json.load(file)
-
-        if data['books']:
-            for book in data['books']:
-
-                # Непосредственно изменение статуса книги
-                if book['book_id'] == int(book_id):
-                    book['book_status'] = book_status.lower()
-                    with open('books.txt', 'w', encoding='utf-8') as file:
-                        json.dump(data, file)
-                    print()
-                    print(f'Статус книги с id {book_id} успешно изменён на {book_status}')
-                    print()
-                else:
-                    print()
-                    print(f'К сожалению книги с id {book_id} у нас нет(')
-                    print()
+        book = Book()
+        book.id = book_id
+        book.status = book_status
+        book.change_status_book()
+    else:
+        print('То что Вы ввели не похоже на статус!')
+        change_status_book()

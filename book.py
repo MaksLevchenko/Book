@@ -36,7 +36,15 @@ def main():
             change_status_book()
 
 # Создаём файл books.txt, если его ещё нет
-if not os.path.exists('books.txt'):
+if os.path.exists('books.txt'):
+    data = {}
+    data['books'] = []
+    with open('books.txt', 'r', encoding='utf-8') as file:
+        data_1 = file.readline()
+    if not data_1:
+        with open('books.txt', 'w', encoding='utf-8') as file:
+            json.dump(data, file)
+else:
     data = {}
     data['books'] = []
     with open('books.txt', 'a', encoding='utf-8') as file:
