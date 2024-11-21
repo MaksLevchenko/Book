@@ -6,6 +6,8 @@ from logic import add_book, del_book, search_book, view_books, change_status_boo
 
 # Главная функция программы
 def main():
+
+    # Вывод в консоль подсказки с доступными командами
     print('Что Вы хотите сделать? Введите один из вариантов от 1 до 5: ')
     print(' 1 - Добавить книгу.')
     print(' 2 - Удалить книгу.')
@@ -13,12 +15,15 @@ def main():
     print(' 4 - Все книги.')
     print(' 5 - Изменить статус книги.')
 
+    # Ввод команды
     action = input()
-    
+
+    # Проверка на то, что команда является числом от 1 до 5
     if not action.isdigit() or int(action) <= 0 or int(action) > 5:
         print('Я Вас не понял:')
         main()
     else:
+        # Если команда является числом от 1 до 5 запускаем соответствующую функцию
         if int(action) == 1:
             add_book()
         elif int(action) == 2:
