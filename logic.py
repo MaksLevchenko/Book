@@ -9,8 +9,8 @@ def add_book() -> None:
 
     # Ввод названия и автора новой книги
     title = input('Введите название книги, которую хотите добавить: ')
-    author = input('Введите через пробел автора книги, которую хотите добавить в формате Фамилия. И. О.: ')
-
+    author = input('Введите автора книги, которую хотите добавить в формате Фамилия. И. О.: ')
+    
     # Проверка на ввод автора
     if (len(author.split('.')) != 3 and len(author.split('.')[1].strip()) != 1 and len(author.split('.')[2].strip()) != 1)\
           or not (author.split('.')[0].strip().isalpha() and author.split('.')[1].strip().isalpha() and author.split('.')[2].strip().isalpha()):
@@ -33,18 +33,22 @@ def add_book() -> None:
     with open('books.txt', 'r', encoding='utf-8') as file:
         data = json.load(file)
 
-    book = Book()
+    
 
     # Присвоение книги id
     if data['books']:
-        book.id = data['books'][-1]['book_id'] + 1
+        id = data['books'][-1]['book_id'] + 1
     else:
-        book.id = 1
-    book.title = title.capitalize()
-    book.author = f"{author.split('.')[0].capitalize()}. {author.split('.')[1].strip().capitalize()}. {author.split('.')[2].strip().capitalize()}."
-    book.year = year
+        id = 1
+    title = title.capitalize()
+    author = f"{author.split('.')[0].capitalize()}. {author.split('.')[1].strip().capitalize()}. {author.split('.')[2].strip().capitalize()}."
+    year = year
 
-    book.add_book()
+    book = Book(id=id, title=title, author=author, year=year)
+
+    print()
+    print(book.add_book())
+    print()
 
 # Удаления книги по id
 def del_book() -> None:
@@ -56,9 +60,8 @@ def del_book() -> None:
     # Проверка id, на то, что введённые данные являются числом
     if book_id.isdigit():
 
-        book = Book()
-        book.id = book_id
-        if not book.del_book():
+        if not Book.del_book(int(book_id)):
+            print(f'Книги с id {book_id} нет в нашем списке!')
             del_book()
     # Вывод ошибки, если введённое значение не является числом
     else:
@@ -71,37 +74,20 @@ def search_book() -> None:
     Если поиск не увенчался успехом, то выводит соответствующее сообщение в консоль"""
 
     # Ввод названия, автора или года издания книги
-    search = input('Введите название, автора или год издания книги: ')
-
-    # Открытие файла books.txt
-    with open('books.txt', 'r', encoding='utf-8') as file:
-        data = json.load(file)
-
-    if data['books']:
+    search = input('Введите название, автора или год издания книги: ').lower()
+    books = Book.search_book(search=search)
+    if books:
         print()
-        for book in data['books']:
-            # Непосредственно поиск книги по названию, автору или году издания книги
-            if book['book_title'].lower() == search.lower() or book['book_author'].lower() == search.lower() or book['book_year'] == search:
-                print(book['book_title'])
-                print(book['book_author'])
-                print(book['book_year'])
-                print(book['book_status'])
-            # Вывод ошибки, если книги с такими данными нет в базе
-            else:
-                print()
-                print('К сожалению такой книги у нас нет(')
-                print()
-        print()
-    # Вывод ошибки, если книги с такими данными нет в базе
+        for book in books:
+            print(book['book_title'])
+            print(book['book_author'])
+            print(book['book_year'])
+            print(book['book_status'])
+            print()
     else:
+        print()
         print('К сожалению такой книги у нас нет(')
-
-# Вывод всех книг
-def view_books() -> None:
-    """Функция выводит в консоль все книги из файла books.txt"""
-
-    book = Book()
-    book.view_books()
+        print()
 
 # Изменение статуса книги
 def change_status_book() -> None:
@@ -121,10 +107,8 @@ def change_status_book() -> None:
     # Проверка на то, что введённый статус соответствует стандартам
     if book_status.lower() == 'в наличии' or book_status.lower() == 'выдана':
 
-        book = Book()
-        book.id = book_id
-        book.status = book_status
-        book.change_status_book()
+        book = Book
+        book.change_status_book(int(book_id), book_status)
     else:
         print('То что Вы ввели не похоже на статус!')
         change_status_book()

@@ -1,7 +1,8 @@
 import json
 import os
 
-from logic import add_book, del_book, search_book, view_books, change_status_book
+from logic import add_book, del_book, search_book, change_status_book
+from models import Book
 
 
 # Главная функция программы
@@ -31,7 +32,7 @@ def main():
         elif int(action) == 3:
             search_book()
         elif int(action) == 4:
-            view_books()
+            Book.view_books()
         elif int(action) == 5:
             change_status_book()
 
