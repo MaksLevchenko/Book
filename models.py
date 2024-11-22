@@ -87,14 +87,10 @@ class Book():
                     book['book_status'] = status.lower()
                     with open('books.txt', 'w', encoding='utf-8') as file:
                         json.dump(data, file)
-                    print()
-                    print(f'Статус книги с id {id} успешно изменён на {status}')
-                    print()
+                    return True
                 else:
-                    print()
-                    print(f'К сожалению книги с id {id} у нас нет(')
-                    print()
-
+                    False
+                    
     def view_books():
         """Метод выводит в консоль все книги"""
 

@@ -107,8 +107,15 @@ def change_status_book() -> None:
     # Проверка на то, что введённый статус соответствует стандартам
     if book_status.lower() == 'в наличии' or book_status.lower() == 'выдана':
 
-        book = Book
-        book.change_status_book(int(book_id), book_status)
+        book = Book.change_status_book(int(book_id), book_status)
+        if book:
+            print()
+            print(f'Статус книги с id {book_id} успешно изменён на {book_status}')
+            print()
+        else:
+            print()
+            print(f'К сожалению книги с id {book_id} у нас нет(')
+            print()
     else:
         print('То что Вы ввели не похоже на статус!')
         change_status_book()
