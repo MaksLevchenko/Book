@@ -72,7 +72,7 @@ class Book():
                     books.append(book)
         return books
 
-    def change_status_book(id, status):
+    def change_status_book(id, status) -> bool:
         """Метод находит книгу по id в файле books.txt меняет статус книги"""
 
         # Открытие файла books.txt
@@ -90,7 +90,7 @@ class Book():
                     return True
                 else:
                     False
-                    
+
     def view_books():
         """Метод выводит в консоль все книги"""
 

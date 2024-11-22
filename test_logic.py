@@ -25,3 +25,7 @@ class LogicTestCase(TestCase):
         book.add_book()
         result = Book.search_book('www')
         self.assertEqual(result, real)
+
+    def test_change_status_book(self):
+        result = Book.change_status_book(1, 'выдана')
+        self.assertEqual(result, True)
