@@ -3,7 +3,7 @@ from models import Book
 
 
 # Добавление книги
-def add_book() -> None:
+def add_book() -> bool:
     """Функция предлагает ввод из консоли название, автора и год издания книги,
       и записывает книгу в файл books.txt в формате json присваивая книге id"""
 
@@ -17,17 +17,17 @@ def add_book() -> None:
         print()
         print('То что Вы ввели не похоже на автора книги в формате Фамилия. И. О.! Надо начинать сначала!')
         print()
-        add_book()
+        return add_book()
 
     # Ввод года издания новой книги
-    year = input('Введите через пробел год издания книги, которую хотите добавить в формате ГГГГ: ')
+    year = input('Введите год издания книги, которую хотите добавить в формате ГГГГ: ')
 
     # Проверка на ввод года издания
     if len(year) != 4 and not year.isdigit():
         print()
         print('То что Вы ввели не похоже на год издания книги в формате ГГГГ.! Надо начинать сначала!')
         print()
-        add_book()
+        return add_book()
 
     # Открытие файла books.txt
     with open('books.txt', 'r', encoding='utf-8') as file:
@@ -49,6 +49,8 @@ def add_book() -> None:
     print()
     print(book.add_book())
     print()
+    
+    return True
 
 # Удаления книги по id
 def del_book() -> None:
@@ -61,11 +63,15 @@ def del_book() -> None:
     if book_id.isdigit():
 
         if not Book.del_book(int(book_id)):
+            print()
             print(f'Книги с id {book_id} нет в нашем списке!')
+            print()
             del_book()
     # Вывод ошибки, если введённое значение не является числом
     else:
+        print()
         print('То, что Вы ввели не является числом!')
+        print()
         del_book()
 
 # Поиск книги по названию, автору или году издания книги
