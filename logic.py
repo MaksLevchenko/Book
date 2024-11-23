@@ -39,7 +39,7 @@ def add_book() -> bool:
     if data['books']:
         id = data['books'][-1]['book_id'] + 1
     else:
-        id = 1
+        id = 2
     title = title.capitalize()
     author = f"{author.split('.')[0].capitalize()}. {author.split('.')[1].strip().capitalize()}. {author.split('.')[2].strip().capitalize()}."
     year = year
