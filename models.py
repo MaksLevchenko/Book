@@ -58,7 +58,7 @@ class Book():
         return f'книга {self.title} успешно добавленна в базу с id {self.id}'
     
     def search_book(search: str) -> list:
-
+        """Метод поиска книги по названию, автору или году издания"""
         books = []
 
          # Открытие файла books.txt
