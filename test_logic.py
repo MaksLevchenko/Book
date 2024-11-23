@@ -9,10 +9,10 @@ from unittest.mock import patch
 class LogicTestCase(TestCase):
 
     def test_add_book(self):
-        book = Book(id=1, title='Www', author='Www. w. w.', year='1111')
+        book = Book(id=0, title='Www', author='Www. w. w.', year='1111')
         result = book.add_book()
 
-        real = f'книга Www успешно добавленна в базу с id 1'
+        real = f'книга Www успешно добавленна в базу с id 0'
         self.assertEqual(result, real)
 
     def test_search_book(self):
@@ -23,9 +23,13 @@ class LogicTestCase(TestCase):
         self.assertEqual(result, real)
 
     def test_del_book(self):
-        result = Book.del_book(1)
+        result = Book.del_book(0)
         self.assertEqual(result, True)
 
     def test_change_status_book(self):
-        result = Book.change_status_book(1, 'выдана')
+        result = Book.change_status_book(0, 'выдана')
+        self.assertEqual(result, True)
+
+    def test_z_del(self):
+        result = Book.del_book(1)
         self.assertEqual(result, True)

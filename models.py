@@ -22,6 +22,8 @@ class Book():
         with open('books.txt', 'r', encoding='utf-8') as file:
             data = json.load(file)
 
+        flag = False
+
         # Поиск книги по id и её удаление
         for book in data['books']:
             if book['book_id'] == id:
@@ -31,10 +33,12 @@ class Book():
                 print()
                 print(f'Книга с id {id} успешно удалена.')
                 print()
-                return True
-            # Вывод ошибки, если книги с таким id нет в базе
-            else:
-                return False
+                flag = True
+        if flag:
+            return True
+        # Вывод ошибки, если книги с таким id нет в базе
+        else:
+            return False
     
     def add_book(self) -> str:
         """Метод добавляет книгу в файл books.txt"""
@@ -79,6 +83,8 @@ class Book():
         with open('books.txt', 'r', encoding='utf-8') as file:
             data = json.load(file)
 
+        flag = False
+
         if data['books']:
             for book in data['books']:
 
@@ -87,9 +93,12 @@ class Book():
                     book['book_status'] = status.lower()
                     with open('books.txt', 'w', encoding='utf-8') as file:
                         json.dump(data, file)
-                    return True
-                else:
-                    False
+            
+                    flag = True
+        if flag:
+            return True
+        else:
+            return False
 
     def view_books():
         """Метод выводит в консоль все книги"""
