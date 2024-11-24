@@ -10,10 +10,10 @@ class LogicTestCase(TestCase):
 
     def test_add_book(self):
         """Тест добавления книги в базу"""
-        book = Book(id=0, title='Www', author='Www. w. w.', year='1111')
+        book = Book(id=0, title='Bww', author='Www. w. w.', year='1111')
         result = book.add_book()
 
-        real = f'книга Www успешно добавленна в базу с id 0'
+        real = f'книга Bww успешно добавленна в базу с id 0'
         self.assertEqual(result, real)
 
     def test_search_book(self):
@@ -34,30 +34,20 @@ class LogicTestCase(TestCase):
         result = Book.change_status_book(0, 'выдана')
         self.assertEqual(result, True)
 
-    # def test_add_book_bad(self):
-    #     """Тест добавления книги в базу"""
-    #     book = Book(id=0, title='Www', author='Www. w. w.', year='1111')
-    #     result = book.add_book()
-
-    #     real = f'книга Www успешно добавленна в базу с id 0'
-    #     self.assertEqual(result, real)
-
     def test_search_book_bad(self):
         """Негативный тест поиска книги"""
         real = []
-        book = Book(id=1, title='Www', author='Www. w. w.', year='1111')
-        book.add_book()
-        result = Book.search_book('aww')
+        result = Book.search_book('www')
         self.assertEqual(result, real)
 
     def test_del_book_bad(self):
-        """Негативный тест удаления книги из базы"""
+        """Негативный тест удаления книги из базы. Тест срабатывает при неправильном id книги"""
         result = Book.del_book(-1)
         self.assertEqual(result, False)
 
     def test_change_status_book_bad(self):
-        """Негативный тест изменения статуса книги"""
-        result = Book.change_status_book(0, 'невыдана')
+        """Негативный тест изменения статуса книги. Тест срабатывает при неправильном id книги"""
+        result = Book.change_status_book(-1, 'невыдана')
         self.assertEqual(result, False)
 
     def test_z_del(self):
