@@ -7,12 +7,31 @@ class Book():
 
     status: str = 'в наличии'
 
-    def __init__(self, id: int, title: str, author: str, year: str):
+    def __init__(self, title: str, author: str, year: str, id: int=2):
 
-        self.id = id
+        print(self._add_id())
+        if id < 2:
+            self.id = id
+        else:
+            self.id = self._add_id()
         self.title = title
         self.author = author
         self.year = year
+
+    @classmethod
+    def _add_id(cls):
+        """Метод работает внутри класса и добавляет id книге"""
+
+        # Открытие файла books.txt
+        with open('books.txt', 'r', encoding='utf-8') as file:
+            data = json.load(file)
+
+        # Присвоение книги id
+        if data['books']:
+            id = data['books'][-1]['book_id'] + 1
+        else:
+            id = 2
+        return id
         
 
     def del_book(id: int) -> bool:

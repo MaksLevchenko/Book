@@ -29,22 +29,11 @@ def add_book() -> bool:
         print()
         return add_book()
 
-    # Открытие файла books.txt
-    with open('books.txt', 'r', encoding='utf-8') as file:
-        data = json.load(file)
-
-    
-
-    # Присвоение книги id
-    if data['books']:
-        id = data['books'][-1]['book_id'] + 1
-    else:
-        id = 2
     title = title.capitalize()
     author = f"{author.split('.')[0].capitalize()}. {author.split('.')[1].strip().capitalize()}. {author.split('.')[2].strip().capitalize()}."
     year = year
 
-    book = Book(id=id, title=title, author=author, year=year)
+    book = Book(title=title, author=author, year=year)
 
     print()
     print(book.add_book())
