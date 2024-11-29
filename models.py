@@ -33,7 +33,9 @@ class Book():
             id = 2
         return id
         
-
+class BookManager(Book):
+    """Класс управления книгами"""
+    
     def del_book(id: int) -> bool:
         """Метод удаляет книгу из файла books.txt по id"""
 

@@ -1,5 +1,4 @@
-import json
-from models import Book
+from models import BookManager
 
 
 # Добавление книги
@@ -41,7 +40,7 @@ def add_book() -> bool:
     author = f"{author.split('.')[0].capitalize()}. {author.split('.')[1].strip().capitalize()}. {author.split('.')[2].strip().capitalize()}."
     year = year
 
-    book = Book(title=title, author=author, year=year)
+    book = BookManager(title=title, author=author, year=year)
 
     print()
     print(book.add_book())
@@ -59,7 +58,7 @@ def del_book() -> None:
     # Проверка id, на то, что введённые данные являются числом
     if book_id.isdigit():
 
-        if not Book.del_book(int(book_id)):
+        if not BookManager.del_book(int(book_id)):
             print()
             print(f'Книги с id {book_id} нет в нашем списке!')
             print()
@@ -78,7 +77,7 @@ def search_book() -> None:
 
     # Ввод названия, автора или года издания книги
     search = input('Введите название, автора или год издания книги: ').lower()
-    books = Book.search_book(search=search)
+    books = BookManager.search_book(search=search)
     if books:
         print()
         for book in books:
@@ -110,7 +109,7 @@ def change_status_book() -> None:
     # Проверка на то, что введённый статус соответствует стандартам
     if book_status.lower() == 'в наличии' or book_status.lower() == 'выдана':
 
-        book = Book.change_status_book(int(book_id), book_status)
+        book = BookManager.change_status_book(int(book_id), book_status)
         if book:
             print()
             print(f'Статус книги с id {book_id} успешно изменён на {book_status}')
