@@ -46,9 +46,13 @@ class LogicTestCase(TestCase):
         self.assertEqual(result, False)
 
     def test_change_status_book_bad(self):
-        """Негативный тест изменения статуса книги. Тест срабатывает при неправильном id книги"""
+        """Негативный тест изменения статуса книги. Тест срабатывает при неправильном id книги или неправильном статусе"""
         result = Book.change_status_book(-1, 'невыдана')
+        result_1 = Book.change_status_book(1, 'выдана')
+        result_2 = Book.change_status_book(1, '')
         self.assertEqual(result, False)
+        self.assertEqual(result_1, False)
+        self.assertEqual(result_2, False)
 
     def test_z_del(self):
         """Очищение книг добавленных в тестах"""
