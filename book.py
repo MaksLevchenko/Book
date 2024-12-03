@@ -32,21 +32,6 @@ def main():
     else:
         print('Я Вас не понял:')
         main()
-    # if not action.isdigit() or int(action) <= 0 or int(action) > 5:
-    #     print('Я Вас не понял:')
-    #     main()
-    # else:
-    #     # Если команда является числом от 1 до 5 запускаем соответствующую функцию
-    #     if int(action) == 1:
-    #         add_book()
-    #     elif int(action) == 2:
-    #         del_book()
-    #     elif int(action) == 3:
-    #         search_book()
-    #     elif int(action) == 4:
-    #         BookManager.view_books()
-    #     elif int(action) == 5:
-    #         change_status_book()
 
 # Создаём файл books.txt, если его ещё нет
 if os.path.exists('books.txt'):
