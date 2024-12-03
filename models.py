@@ -1,3 +1,5 @@
+from other import info_print
+
 import json
 
 
@@ -9,7 +11,6 @@ class Book():
 
     def __init__(self, title: str, author: str, year: str, id: int=2):
 
-        print(self._add_id())
         if id < 2:
             self.id = id
         else:
@@ -51,9 +52,7 @@ class BookManager(Book):
                 data['books'].remove(book)
                 with open('books.txt', 'w', encoding='utf-8') as file:
                     json.dump(data, file)
-                print()
-                print(f'Книга с id {id} успешно удалена.')
-                print()
+                info_print(f'Книга с id {id} успешно удалена.')
                 flag = True
         if flag:
             return True
@@ -130,9 +129,7 @@ class BookManager(Book):
 
         # Непосредственно вывод в консоль всех книг из базы
         if data['books']:
-            print()
-            print('Вот все наши книги:')
-            print()
+            info_print('Вот все наши книги:')
             for book in data['books']:
                 print(book['book_title'])
                 print(book['book_author'])
