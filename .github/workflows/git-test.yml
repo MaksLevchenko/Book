@@ -30,6 +30,8 @@ jobs:
     - name: testing
       # run: bash .github/ci/wait_for_agent.sh
       run: pytest
+      run: python -m unittest tests.py
+
       # env:
       #   TP_DEV_TOKEN: ${{ secrets.TP_DEV_TOKEN }} # < Let Secrets handle your tokens
       #   TP_AGENT_URL: http://localhost:8585
