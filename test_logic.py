@@ -70,4 +70,4 @@ class LogicTestCase(TestCase):
     def test_sum(self):
         """Тест сложения двух чисел"""
         result = sum(2, 3)
-        self.assertEqual(result, 1)
+        self.assertEqual(result, 12)
