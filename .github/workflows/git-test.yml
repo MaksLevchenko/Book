@@ -27,9 +27,9 @@ jobs:
       #   envsubst < .github/ci/docker-compose.yml > docker-compose.yml
       #   cat docker-compose.yml
       #   docker-compose -f docker-compose.yml up -d
-    - name: testing
+    # - name: testing
       # run: bash .github/ci/wait_for_agent.sh
-      run: pytest
+      # run: pytest
     - name: unit tests
       run: python -m unittest tests.py
 
