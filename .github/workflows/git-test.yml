@@ -30,6 +30,7 @@ jobs:
     - name: testing
       # run: bash .github/ci/wait_for_agent.sh
       run: pytest
+    - name: unit tests
       run: python -m unittest tests.py
 
       # env:
